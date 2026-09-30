@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@backend/*": ["./backend/src/*"]
+      "@backend/client": ["./backend/src/client.ts"]
     },
     "types": ["bun-types"]
   },
@@ -32,5 +32,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "backend"]
 }
