@@ -20,7 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@backend/client": ["./backend/src/client.ts"]
+      "@backend/client": ["./backend/src/client.ts"],
+      "@formatting/*": ["./lib/formatting/*"],
+      "@components/*": ["./components/*"],
+      "@lib/*": ["./lib/*"]
     },
     "types": ["bun-types"]
   },

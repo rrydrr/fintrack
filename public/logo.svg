@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Background Gradient (Deep Obsidian Navy) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#030712" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Emerald Primary Gradient for 'F' Spine & Top Bar -->
+    <linearGradient id="emeraldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+
+    <!-- Cyan-Mint Secondary Gradient for Dynamic Middle Bar -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="70%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Upward Trend Accent Gradient -->
+    <linearGradient id="trendGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#a7f3d0" />
+    </linearGradient>
+
+    <!-- Soft Depth Shadow -->
+    <filter id="dropShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Subtle Glow -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="24" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Container Squircle Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Crisp Subtle Border -->
+  <rect
+    x="2"
+    y="2"
+    width="508"
+    height="508"
+    rx="126"
+    stroke="rgba(255, 255, 255, 0.08)"
+    stroke-width="3"
+  />
+
+  <!-- Ambient Backdrop Glow Behind the 'F' -->
+  <circle cx="256" cy="240" r="130" fill="#10b981" opacity="0.12" filter="url(#softGlow)" />
+  <circle cx="320" cy="270" r="90" fill="#06b6d4" opacity="0.10" filter="url(#softGlow)" />
+
+  <!-- FinTrack 'F' Monogram Group -->
+  <g filter="url(#dropShadow)">
+    <!-- Primary 'F' Spine and Top Horizontal Bar -->
+    <path
+      d="M 148 148
+         C 148 128.1 164.1 112 184 112
+         L 336 112
+         C 355.9 112 372 128.1 372 148
+         C 372 167.9 355.9 184 336 184
+         L 220 184
+         L 220 364
+         C 220 383.9 203.9 400 184 400
+         C 164.1 400 148 383.9 148 364
+         Z"
+      fill="url(#emeraldGrad)"
+    />
+
+    <!-- Middle 'F' Bar (Financial Dynamic Tracker) -->
+    <rect
+      x="184"
+      y="236"
+      width="132"
+      height="64"
+      rx="32"
+      fill="url(#cyanGrad)"
+    />
+
+    <!-- Subtle Upward Momentum Indicator (FinTrack Spark Dot) -->
+    <circle cx="356" cy="268" r="14" fill="url(#trendGrad)" />
+  </g>
+</svg>

@@ -1,0 +1,71 @@
+"use client";
+
+import React, { useEffect } from "react";
+import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/lib/hooks/useAuth";
+import { CircleNotchIcon } from "@phosphor-icons/react";
+import { Navbar } from "@/components/partials/navbar";
+import { Footer } from "@/components/partials/footer";
+
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { user, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.replace("/login");
+      return;
+    }
+
+    // Admins cannot manage personal finances (accounts & receipts)
+    if (!isLoading && user?.role === "admin") {
+      const personalFinanceRoutes = ["/accounts", "/receipts"];
+      if (personalFinanceRoutes.some((route) => pathname.startsWith(route))) {
+        router.replace("/");
+      }
+    }
+  }, [isLoading, user, pathname, router]);
+
+  // Loading state while verifying authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+        <div className="flex flex-col items-center gap-4">
+          <Image
+            src="/logo.svg"
+            alt="FinTrack Logo"
+            width={48}
+            height={48}
+            className="animate-pulse rounded-xl"
+            priority
+          />
+          <div className="flex items-center gap-2 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+            <CircleNotchIcon size={16} className="animate-spin text-emerald-500" />
+            <span>Verifying session...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Not authenticated: render nothing while redirecting to /login
+  if (!user) {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950">
+      <Navbar />
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
