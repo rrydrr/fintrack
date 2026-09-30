@@ -79,7 +79,7 @@ function setupBackendLink() {
   const targetPath = resolvePath(rawConfiguredPath, rootDir);
   const linkPath = path.join(rootDir, "backend");
 
-  const fallbackClientPath = path.join(rootDir, "lib", "backend-fallback.ts");
+  const fallbackClientPath = path.join(rootDir, "src", "lib", "backend-fallback.ts");
 
   if (!fs.existsSync(targetPath)) {
     if (fs.existsSync(fallbackClientPath)) {
@@ -91,7 +91,7 @@ function setupBackendLink() {
 
       console.log(
         `\x1b[33m[setup-backend] Live backend directory not found at: ${targetPath}\x1b[0m\n` +
-        `\x1b[32m[setup-backend] Using committed fallback client from ./lib/backend-fallback.ts (Vercel / CI build mode).\x1b[0m`
+        `\x1b[32m[setup-backend] Using committed fallback client from ./src/lib/backend-fallback.ts (Vercel / CI build mode).\x1b[0m`
       );
       return;
     }

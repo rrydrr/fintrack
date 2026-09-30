@@ -19,11 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
       "@backend/client": ["./backend/src/client.ts"],
-      "@formatting/*": ["./lib/formatting/*"],
-      "@components/*": ["./components/*"],
-      "@lib/*": ["./lib/*"]
+      "@formatting/*": ["./src/lib/formatting/*"],
+      "@components/*": ["./src/components/*"],
+      "@lib/*": ["./src/lib/*"]
     },
     "types": ["bun-types"]
   },
