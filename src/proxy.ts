@@ -10,6 +10,14 @@ export function proxy(request: NextRequest) {
 
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/register");
 
+  // If explicitly sweeping or logging out, clear cookies and allow auth page
+  if (request.nextUrl.searchParams.has("sweep") || request.nextUrl.searchParams.has("logout")) {
+    const response = NextResponse.redirect(new URL("/login", request.url));
+    response.cookies.delete("accessToken");
+    response.cookies.delete("refreshToken");
+    return response;
+  }
+
   // If trying to access protected routes without session tokens, redirect to /login
   if (!isAuthenticated && !isAuthPage) {
     const loginUrl = new URL("/login", request.url);

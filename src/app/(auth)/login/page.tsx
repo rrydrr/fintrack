@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/hooks/useAuth";
 import {
@@ -136,7 +137,13 @@ export default function LoginPage() {
           </button>
 
           <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
-            Need an account? Contact an administrator for an invite code.
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              className="font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-4 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+            >
+              Create an account
+            </Link>
           </p>
         </CardFooter>
       </form>

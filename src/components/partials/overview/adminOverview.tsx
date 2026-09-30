@@ -19,6 +19,16 @@ import {
   ClockIcon,
 } from "@phosphor-icons/react";
 import { Card } from "@components/reusables/card";
+import {
+  SelectInput,
+  SelectOption,
+} from "@components/reusables/basicInputs";
+
+const EXPIRY_OPTIONS: SelectOption[] = [
+  { value: 7, label: "Valid for 7 days" },
+  { value: 14, label: "Valid for 14 days" },
+  { value: 30, label: "Valid for 30 days" },
+];
 
 export interface InviteCode {
   id: string;
@@ -149,20 +159,23 @@ export function AdminOverview({ user }: { user: User }) {
 
         {/* Quick Invite Generator in Header */}
         <div className="flex items-center gap-2">
-          <select
-            value={expiresDays}
-            onChange={(e) => setExpiresDays(Number(e.target.value))}
-            className="rounded-xl border border-zinc-200 bg-white px-2.5 py-1.5 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 focus:outline-none"
-          >
-            <option value={7}>Valid for 7 days</option>
-            <option value={14}>Valid for 14 days</option>
-            <option value={30}>Valid for 30 days</option>
-          </select>
+          <div className="w-40">
+            <SelectInput
+              size="sm"
+              isSearchable={false}
+              isClearable={false}
+              options={EXPIRY_OPTIONS}
+              value={EXPIRY_OPTIONS.find((opt) => opt.value === expiresDays)}
+              onChange={(selected) => {
+                if (selected) setExpiresDays(Number(selected.value));
+              }}
+            />
+          </div>
 
           <button
             onClick={handleCreateInvite}
             disabled={generating}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-zinc-900 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-zinc-900 px-3.5 h-[36px] text-xs font-semibold text-white shadow-xs transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 disabled:opacity-50 cursor-pointer shrink-0"
           >
             {generating ? (
               <CircleNotchIcon size={14} className="animate-spin" />
