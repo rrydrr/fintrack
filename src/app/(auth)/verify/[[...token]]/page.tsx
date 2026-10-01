@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/hooks/useAuth";
@@ -54,8 +54,9 @@ function VerifyEmailContent() {
   const [manualToken, setManualToken] = useState("");
   const [showManualInput, setShowManualInput] = useState(false);
 
-  // Resend email state
-  const [resendEmail, setResendEmail] = useState(queryEmail || user?.email || "");
+  // Resend email state (derives initial value from query param or user email, with local override)
+  const [customResendEmail, setCustomResendEmail] = useState<string | null>(null);
+  const resendEmail = customResendEmail ?? (queryEmail || user?.email || "");
   const [isResending, setIsResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState<string | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
@@ -65,13 +66,6 @@ function VerifyEmailContent() {
 
   // Deduplication ref for React StrictMode / double effect execution
   const attemptedTokenRef = useRef<string | null>(null);
-
-  // Sync resend email with authenticated user once loaded
-  useEffect(() => {
-    if (user?.email && !resendEmail) {
-      setResendEmail(user.email);
-    }
-  }, [user, resendEmail]);
 
   // Handle countdown for resend cooldown
   useEffect(() => {
@@ -98,7 +92,7 @@ function VerifyEmailContent() {
   }, [redirectCountdown, router, user]);
 
   // Execute verification logic
-  const handleVerify = async (tokenToVerify: string) => {
+  const handleVerify = useCallback(async (tokenToVerify: string) => {
     const cleanToken = tokenToVerify.trim();
     if (!cleanToken) {
       setErrorMessage("Please enter a valid verification token.");
@@ -124,7 +118,7 @@ function VerifyEmailContent() {
         result.error || "Verification failed. The token may be invalid or expired."
       );
     }
-  };
+  }, [verifyEmail, refetchUser]);
 
   // Automatically trigger verification if token is present in URL
   useEffect(() => {
@@ -132,7 +126,7 @@ function VerifyEmailContent() {
       attemptedTokenRef.current = initialToken;
       handleVerify(initialToken);
     }
-  }, [initialToken]);
+  }, [initialToken, handleVerify]);
 
   // Handle resend verification email submission
   const handleResend = async (e?: React.FormEvent) => {
@@ -308,7 +302,7 @@ function VerifyEmailContent() {
                 type="email"
                 placeholder="you@example.com"
                 value={resendEmail}
-                onChange={(e) => setResendEmail(e.target.value)}
+                onChange={(e) => setCustomResendEmail(e.target.value)}
                 disabled={isResending || resendCooldown > 0}
                 required
                 prefixIcon={<EnvelopeSimpleIcon size={16} />}
@@ -407,7 +401,7 @@ function VerifyEmailContent() {
               type="email"
               placeholder="you@example.com"
               value={resendEmail}
-              onChange={(e) => setResendEmail(e.target.value)}
+              onChange={(e) => setCustomResendEmail(e.target.value)}
               disabled={isResending || resendCooldown > 0}
               required
               prefixIcon={<EnvelopeSimpleIcon size={16} />}

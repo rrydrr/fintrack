@@ -89,7 +89,7 @@ function DropdownIndicator<
   return (
     <components.DropdownIndicator {...props}>
       <div
-        className={`!cursor-pointer text-zinc-400 transition-transform duration-200 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 ${
+        className={`cursor-pointer! text-zinc-400 transition-transform duration-200 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 ${
           props.selectProps.menuIsOpen ? "rotate-180" : ""
         }`}
       >
@@ -107,7 +107,7 @@ function ClearIndicator<
 >(props: ClearIndicatorProps<Option, IsMulti, Group>) {
   return (
     <components.ClearIndicator {...props}>
-      <div className="!cursor-pointer text-zinc-400 transition-colors hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-200">
+      <div className="cursor-pointer! text-zinc-400 transition-colors hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-200">
         <XIcon size={13} weight="bold" />
       </div>
     </components.ClearIndicator>
@@ -125,18 +125,18 @@ function Option<
 
   return (
     <components.Option {...props}>
-      <div className="flex w-full items-center justify-between gap-2 !cursor-pointer">
-        <div className="flex items-center gap-2 overflow-hidden !cursor-pointer">
+      <div className="flex w-full items-center justify-between gap-2 cursor-pointer!">
+        <div className="flex items-center gap-2 overflow-hidden cursor-pointer!">
           {data?.icon && (
-            <span className="flex-shrink-0 text-current">{data.icon}</span>
+            <span className="shrink-0 text-current">{data.icon}</span>
           )}
-          <div className="flex flex-col text-left min-w-0 !cursor-pointer">
-            <span className="truncate leading-normal !cursor-pointer">
+          <div className="flex flex-col text-left min-w-0 cursor-pointer!">
+            <span className="truncate leading-normal cursor-pointer!">
               {props.children}
             </span>
             {data?.description && (
               <span
-                className={`text-[10px] leading-tight truncate !cursor-pointer ${
+                className={`text-[10px] leading-tight truncate cursor-pointer! ${
                   isSelected
                     ? "text-zinc-300 dark:text-zinc-600"
                     : "text-zinc-400 dark:text-zinc-500"
@@ -149,7 +149,7 @@ function Option<
         </div>
 
         {isSelected && (
-          <span className="flex-shrink-0 !cursor-pointer">
+          <span className="shrink-0 cursor-pointer!">
             <CheckIcon size={12} weight="bold" />
           </span>
         )}
@@ -166,7 +166,7 @@ function MultiValueRemove<
 >(props: MultiValueRemoveProps<Option, IsMulti, Group>) {
   return (
     <components.MultiValueRemove {...props}>
-      <div className="text-zinc-400 transition-colors hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-200 !cursor-pointer">
+      <div className="text-zinc-400 transition-colors hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-200 cursor-pointer!">
         <XIcon size={11} weight="bold" />
       </div>
     </components.MultiValueRemove>
@@ -204,7 +204,7 @@ export function getSelectClassNames({
   const fontSize = isSm ? "text-xs" : "text-sm";
 
   return {
-    container: () => "!cursor-pointer",
+    container: () => "cursor-pointer!",
     control: ({
       isFocused,
       isDisabled,
@@ -212,9 +212,9 @@ export function getSelectClassNames({
       isFocused: boolean;
       isDisabled: boolean;
     }) => {
-      const minHeight = isSm ? "min-h-[36px]" : "min-h-[42px]";
+      const minHeight = isSm ? "min-h-9" : "min-h-10.5";
       const px = isSm ? "px-2.5" : "px-3";
-      const baseClasses = `relative flex items-center ${minHeight} w-full rounded-xl border bg-white ${px} ${fontSize} text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-100 !cursor-pointer`;
+      const baseClasses = `relative flex items-center ${minHeight} w-full rounded-xl border bg-white ${px} ${fontSize} text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-100 cursor-pointer!`;
       const paddingClass = prefixIcon ? (isSm ? "pl-8" : "pl-9") : "";
       const stateClass = error
         ? "border-red-500/80 ring-2 ring-red-500/20 dark:border-red-500/80"
@@ -222,26 +222,26 @@ export function getSelectClassNames({
         ? "border-zinc-900 ring-2 ring-zinc-900/10 dark:border-zinc-400 dark:ring-zinc-400/20"
         : "border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700";
       const disabledClass = isDisabled
-        ? "opacity-50 !cursor-not-allowed bg-zinc-50 dark:bg-zinc-900/50"
-        : "!cursor-pointer";
+        ? "opacity-50 cursor-not-allowed! bg-zinc-50 dark:bg-zinc-900/50"
+        : "cursor-pointer!";
 
       return `${baseClasses} ${paddingClass} ${stateClass} ${disabledClass} ${selectClassName}`;
     },
     valueContainer: () =>
       isSm
-        ? "flex flex-wrap items-center gap-1 py-0.5 !cursor-pointer"
-        : "flex flex-wrap items-center gap-1.5 py-1 !cursor-pointer",
+        ? "flex flex-wrap items-center gap-1 py-0.5 cursor-pointer!"
+        : "flex flex-wrap items-center gap-1.5 py-1 cursor-pointer!",
     placeholder: () =>
-      `${fontSize} leading-normal text-zinc-400 dark:text-zinc-500 font-normal !cursor-pointer select-none`,
+      `${fontSize} leading-normal text-zinc-400 dark:text-zinc-500 font-normal cursor-pointer! select-none`,
     singleValue: () =>
-      `${fontSize} leading-normal text-zinc-900 dark:text-zinc-100 font-normal !cursor-pointer select-none`,
+      `${fontSize} leading-normal text-zinc-900 dark:text-zinc-100 font-normal cursor-pointer! select-none`,
     input: () =>
-      `${fontSize} leading-normal text-zinc-900 dark:text-zinc-100 !cursor-pointer [&_input]:!cursor-pointer`,
+      `${fontSize} leading-normal text-zinc-900 dark:text-zinc-100 cursor-pointer! [&_input]:cursor-pointer!`,
     menu: () =>
-      `${fontSize} mt-1.5 overflow-hidden rounded-xl border border-zinc-200 bg-white/95 backdrop-blur-md p-1 shadow-xl dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-2xl z-50 !cursor-pointer [&_*]:!cursor-pointer`,
+      `${fontSize} mt-1.5 overflow-hidden rounded-xl border border-zinc-200 bg-white/95 backdrop-blur-md p-1 shadow-xl dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-2xl z-50 cursor-pointer! [&_*]:cursor-pointer!`,
     menuList: () =>
-      `${fontSize} flex flex-col gap-0.5 p-0 max-h-60 overflow-y-auto !cursor-pointer [&_*]:!cursor-pointer`,
-    menuPortal: () => "!cursor-pointer [&_*]:!cursor-pointer",
+      `${fontSize} flex flex-col gap-0.5 p-0 max-h-60 overflow-y-auto cursor-pointer! [&_*]:cursor-pointer!`,
+    menuPortal: () => "cursor-pointer! [&_*]:cursor-pointer!",
     option: ({
       isFocused,
       isSelected,
@@ -252,8 +252,8 @@ export function getSelectClassNames({
       isDisabled: boolean;
     }) => {
       const padding = isSm ? "px-2 py-1.5" : "px-2.5 py-2";
-      const base = `rounded-lg ${padding} ${fontSize} leading-normal transition-colors !cursor-pointer select-none`;
-      if (isDisabled) return `${base} opacity-40 !cursor-not-allowed`;
+      const base = `rounded-lg ${padding} ${fontSize} leading-normal transition-colors cursor-pointer! select-none`;
+      if (isDisabled) return `${base} opacity-40 cursor-not-allowed!`;
       if (isSelected) {
         return `${base} bg-zinc-900 text-white font-medium dark:bg-zinc-100 dark:text-zinc-950`;
       }
@@ -266,12 +266,12 @@ export function getSelectClassNames({
       "inline-flex items-center gap-1 rounded-lg border border-zinc-200/80 bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200",
     multiValueLabel: () => "truncate",
     multiValueRemove: () =>
-      "rounded p-0.5 hover:bg-zinc-200 dark:hover:bg-zinc-800 !cursor-pointer",
-    indicatorsContainer: () => "flex items-center gap-0.5 pl-1 !cursor-pointer",
+      "rounded p-0.5 hover:bg-zinc-200 dark:hover:bg-zinc-800 cursor-pointer!",
+    indicatorsContainer: () => "flex items-center gap-0.5 pl-1 cursor-pointer!",
     clearIndicator: () =>
-      "p-0.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 !cursor-pointer",
+      "p-0.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer!",
     dropdownIndicator: () =>
-      "p-0.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 !cursor-pointer",
+      "p-0.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer!",
     indicatorSeparator: () => "hidden",
     noOptionsMessage: () =>
       `py-4 text-center ${fontSize} text-zinc-400 dark:text-zinc-500`,
@@ -382,7 +382,7 @@ export function SelectInput<
 
   return (
     <div
-      className={`relative w-full !cursor-pointer ${fontSize} leading-normal ${containerClassName}`}
+      className={`relative w-full cursor-pointer! ${fontSize} leading-normal ${containerClassName}`}
     >
       {prefixIcon && (
         <div
@@ -407,8 +407,8 @@ export function SelectInput<
       ) : (
         <div
           className={`flex ${
-            isSm ? "min-h-[36px] px-2.5 text-xs" : "min-h-[42px] px-3.5 text-sm"
-          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 !cursor-pointer ${
+            isSm ? "min-h-9 px-2.5 text-xs" : "min-h-10.5 px-3.5 text-sm"
+          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 cursor-pointer! ${
             prefixIcon ? (isSm ? "pl-8" : "pl-10") : ""
           } ${
             error
@@ -465,7 +465,7 @@ export function CreatableSelectInput<
 
   return (
     <div
-      className={`relative w-full !cursor-pointer ${fontSize} leading-normal ${containerClassName}`}
+      className={`relative w-full cursor-pointer! ${fontSize} leading-normal ${containerClassName}`}
     >
       {prefixIcon && (
         <div
@@ -490,8 +490,8 @@ export function CreatableSelectInput<
       ) : (
         <div
           className={`flex ${
-            isSm ? "min-h-[36px] px-2.5 text-xs" : "min-h-[42px] px-3.5 text-sm"
-          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 !cursor-pointer ${
+            isSm ? "min-h-9 px-2.5 text-xs" : "min-h-10.5 px-3.5 text-sm"
+          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 cursor-pointer! ${
             prefixIcon ? (isSm ? "pl-8" : "pl-10") : ""
           } ${
             error
@@ -548,7 +548,7 @@ export function AsyncSelectInput<
 
   return (
     <div
-      className={`relative w-full !cursor-pointer ${fontSize} leading-normal ${containerClassName}`}
+      className={`relative w-full cursor-pointer! ${fontSize} leading-normal ${containerClassName}`}
     >
       {prefixIcon && (
         <div
@@ -573,8 +573,8 @@ export function AsyncSelectInput<
       ) : (
         <div
           className={`flex ${
-            isSm ? "min-h-[36px] px-2.5 text-xs" : "min-h-[42px] px-3.5 text-sm"
-          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 !cursor-pointer ${
+            isSm ? "min-h-9 px-2.5 text-xs" : "min-h-10.5 px-3.5 text-sm"
+          } w-full items-center rounded-xl border bg-white text-zinc-400 dark:bg-zinc-950 dark:text-zinc-500 cursor-pointer! ${
             prefixIcon ? (isSm ? "pl-8" : "pl-10") : ""
           } ${
             error

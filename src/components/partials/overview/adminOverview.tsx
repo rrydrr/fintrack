@@ -175,7 +175,7 @@ export function AdminOverview({ user }: { user: User }) {
           <button
             onClick={handleCreateInvite}
             disabled={generating}
-            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-zinc-900 px-3.5 h-[36px] text-xs font-semibold text-white shadow-xs transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 disabled:opacity-50 cursor-pointer shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-zinc-900 px-3.5 h-9 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 disabled:opacity-50 cursor-pointer shrink-0"
           >
             {generating ? (
               <CircleNotchIcon size={14} className="animate-spin" />

@@ -143,7 +143,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string) => {
     try {
       const res = await api.auth.login.post({
         email: email.trim(),
@@ -172,9 +172,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
       return { success: false, error: msg };
     }
-  };
+  }, []);
 
-  const register = async (data: RegisterData) => {
+  const register = useCallback(async (data: RegisterData) => {
     try {
       const res = await api.auth.register.post({
         name: data.name.trim(),
@@ -205,9 +205,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
       return { success: false, error: msg };
     }
-  };
+  }, []);
 
-  const verifyEmail = async (token: string) => {
+  const verifyEmail = useCallback(async (token: string) => {
     try {
       const res = await api.auth["verify-email"].post({
         token: token.trim(),
@@ -241,9 +241,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
       return { success: false, error: msg };
     }
-  };
+  }, []);
 
-  const resendVerification = async (email: string) => {
+  const resendVerification = useCallback(async (email: string) => {
     try {
       const res = await api.auth["resend-verification"].post({
         email: email.trim().toLowerCase(),
@@ -274,9 +274,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
       return { success: false, error: msg };
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await api.auth.logout.post();
     } catch (err) {
@@ -285,7 +285,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
       router.push("/login");
     }
-  };
+  }, [router]);
 
   return (
     <AuthContext.Provider
